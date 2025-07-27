@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Calorie Counter | Твой вкусный дневник{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'nutrition/css/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">CalorieArt</div>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer style="text-align: center; padding: 2rem; color: var(--accent-1);">
+    🍎 Made with love and fresh calories 🍕
+  </footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "nutrition/base.html" %}
+
+{% block content %}
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+  <h1 style="text-align: center; color: var(--accent-1);">🍽 Моя вкусная коллекция</h1>
+  
+  <a href="{% url 'add_product' %}" class="btn" style="display: block; width: fit-content; margin: 0 auto 2rem;">
+    + Добавить новый продукт
+  </a>
+
+  <ul class="product-list">
+    {% for product in products %}
+    <li class="product-item">
+      <div class="product-icon">
+        {{ product.name|slice:":1"|upper }}
+      </div>
+      <div style="flex-grow: 1;">
+        <h3 style="margin: 0; color: var(--accent-1);">{{ product.name }}</h3>
+        <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+          <span style="color: var(--accent-1);">🔥 {{ product.calories }} ккал</span>
+          <span style="color: var(--accent-2);">🍗 {{ product.protein }}г</span>
+          <span style="color: var(--accent-2);">🥑 {{ product.fat }}г</span>
+          <span style="color: var(--accent-2);">🍞 {{ product.carbs }}г</span>
+        </div>
+      </div>
+    </li>
+    {% empty %}
+    <li class="product-item" style="text-align: center;">
+      <div style="width: 100%; padding: 2rem;">
+        <div style="font-size: 5rem;">🍽</div>
+        <h3>Ваша коллекция продуктов пуста</h3>
+        <p>Добавьте первый продукт!</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

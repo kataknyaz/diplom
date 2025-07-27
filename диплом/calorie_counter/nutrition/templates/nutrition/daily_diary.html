@@ -1,0 +1,36 @@
+{% extends "nutrition/base.html" %}
+
+{% block content %}
+<div class="card">
+  <h1>Дневник питания</h1>
+  
+  <div class="calorie-progress">
+    <h3>Калории: {{ total_calories|floatformat }} / {{ calorie_goal }} ккал</h3>
+    <div class="progress-bar">
+      <div class="progress" style="width: {{ total_calories|div:calorie_goal|mul:100 }}%"></div>
+    </div>
+    <p>Осталось: {{ remaining_calories|floatformat }} ккал</p>
+  </div>
+  
+  <div class="meals-container">
+    {% for meal in meals %}
+    <div class="meal-card">
+      <h2>{{ meal.get_meal_type_display }}</h2>
+      {% if meal.notes %}<p>{{ meal.notes }}</p>{% endif %}
+      
+      <ul class="meal-products">
+        {% for mp in meal.mealproduct_set.all %}
+        <li>
+          {{ mp.product.name }} - 
+          {{ mp.weight }}г = 
+          {{ mp.total_calories|floatformat }} ккал
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+  
+  <a href="{% url 'add_meal' %}" class="btn">+ Добавить приём пищи</a>
+</div>
+{% endblock %}

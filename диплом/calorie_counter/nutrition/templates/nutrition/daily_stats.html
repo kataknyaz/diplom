@@ -1,0 +1,14 @@
+{% extends 'nutrition/base.html' %}
+{% block content %}
+<h1>Статистика за {{ today|date:"d.m.Y" }}</h1>
+<h2>Всего калорий: {{ total_calories|floatformat:2 }}</h2>
+<ul>
+    {% for item in consumed %}
+    <li>
+        {{ item.product.name }} - 
+        {{ item.weight }}г = 
+        {{ item.total_calories|floatformat:2 }} ккал
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
