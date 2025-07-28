@@ -1,0 +1,45 @@
+{% extends 'nutrition/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Добавить новый продукт</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'product_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Получаем элементы полей ввода
+    const proteinInput = document.getElementById('id_protein');
+    const fatInput = document.getElementById('id_fat');
+    const carbsInput = document.getElementById('id_carbs');
+    const caloriesInput = document.getElementById('id_calories');
+    
+    // Функция для расчета калорий
+    function calculateCalories() {
+        // Получаем значения из полей (по умолчанию 0, если пусто)
+        const protein = parseFloat(proteinInput.value) || 0;
+        const fat = parseFloat(fatInput.value) || 0;
+        const carbs = parseFloat(carbsInput.value) || 0;
+        
+        // Рассчитываем калории (4 ккал/г для белков и углеводов, 9 ккал/г для жиров)
+        const calories = (protein * 4) + (fat * 9) + (carbs * 4);
+        
+        // Устанавливаем рассчитанное значение в поле калорий
+        caloriesInput.value = calories.toFixed(1); // Округляем до 1 знака после запятой
+    }
+    
+    // Добавляем обработчики событий для полей ввода
+    proteinInput.addEventListener('input', calculateCalories);
+    fatInput.addEventListener('input', calculateCalories);
+    carbsInput.addEventListener('input', calculateCalories);
+    
+    // Вызываем расчет при загрузке страницы (если есть заполненные поля)
+    calculateCalories();
+});
+</script>
+{% endblock %}

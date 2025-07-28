@@ -1,0 +1,13 @@
+{% extends 'nutrition/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Добавить потребленный продукт</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Добавить</button>
+        <a href="{% url 'daily_stats' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
